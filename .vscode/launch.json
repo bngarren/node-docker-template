@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "name": "docker-jest",
+            "request": "attach",
+            "address": "0.0.0.0",
+            "port": 9230, // Must be exposed in the compose.yaml file!
+            "localRoot": "${workspaceFolder}",
+            "remoteRoot": "/app", // Location of our app dir within the docker container
+            "skipFiles": [
+              "<node_internals>/**",
+              "${workspaceFolder}/node_modules/**"
+            ],
+            "internalConsoleOptions": "neverOpen",
+            "presentation": {
+              "reveal": "silent"
+            }
+          },
+    ]
+}

@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  app_development:
+    container_name: app_development
+    build:
+      context: .
+      target: development
+    entrypoint: ["/bin/bash", "./entrypoint.development.docker.sh"]
+    ports:
+    # This setting actually makes the application accessible from outside the Docker container
+    # <host>:<container> 
+    # thus <container> needs to match the port that our node process is listening on (from .env file)
+      - "2024:2024"
+      - "9230:9229" # connect the container's 9229 port to our host machine's 9230 port
+    env_file:
+      - .env.common
+      - .env.development
+    volumes:
+      - ./tests:/app/tests:ro #Allow container to read from host's ./tests/
+      - ./src:/app/src:ro #Allow container to read from host's ./src/
+      - ./logs:/app/logs # Map the logs directory
